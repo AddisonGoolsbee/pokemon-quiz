@@ -6,6 +6,6 @@ During the pandemic, one of the (few) things I did was memorize the first ~800 p
 
 ## Running the Program
 
-Type `pokemon`
+To run the program, type `pokemon`
 
 To setup the program to run from anywhere on your computer, type the following command: `cp pokemon ~/.local/bin`. If you update `pokemon`, you'll need to run the command `rm ~/.local/bin/pokemon && cp pokemon ~/.local/bin`
