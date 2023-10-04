@@ -3,6 +3,7 @@ import os
 import termios
 import sys
 import tty
+import json
 
 GENERATION_CUTOFFS = [0, 151, 251, 386, 493, 649, 721, 809]
 
@@ -19,6 +20,19 @@ def get_char_input():
     if char in ["\x03", "\x04"]:
         raise KeyboardInterrupt
     return char
+
+def run_game(range: list):
+    with open("pokemon.json", 'r') as json_file:
+        data = json.load(json_file)
+
+    num_pokemon = range[1] - range[0]
+    num_correct = 0
+    total_time = 0.0
+
+    for index, item in enumerate(data[range[0] + 1:range[1] + 1], start=1):
+        os.system("clear")
+        print(f'{num_correct}/num_pokemon')
+        print(f"Item {index}: {item}")
 
 
 # def run_game(mode: str):
@@ -92,7 +106,7 @@ def game_setup():
 def main():
     try:
         pokemon_range = game_setup()
-        print(pokemon_range)
+        run_game(pokemon_range)
     except KeyboardInterrupt:
         print("\nYou're a bum")
 
