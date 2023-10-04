@@ -3226,5 +3226,13 @@
     {
         "name": "zeraora",
         "set": true
+    },
+    {
+        "name": "meltan",
+        "set": true
+    },
+    {
+        "name": "melmetal",
+        "set": false
     }
 ]
