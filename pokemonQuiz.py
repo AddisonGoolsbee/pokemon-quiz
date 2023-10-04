@@ -1,4 +1,3 @@
-import random
 import time
 import os
 import termios
@@ -6,6 +5,7 @@ import sys
 import tty
 
 GENERATION_CUTOFFS = [0, 151, 251, 386, 493, 649, 721, 809]
+
 
 def get_char_input():
     fd = sys.stdin.fileno()
@@ -66,14 +66,10 @@ def get_char_input():
 #         exit()
 
 
+# Choose settings and generation for the quiz
 def game_setup():
-    selection = (
-        input(
-            "You are playing with the default settings. Press s to change them\nChoose a generation\nall  1  2  3  4  5  6  7\n"
-        )
-        .lower()
-        .strip()
-    )
+    message = "You are playing with the default settings. Press s to change them\nChoose a generation\nall  1  2  3  4  5  6  7\n"
+    selection = input(message).lower().strip()
     while True:
         match selection:
             case "s" | "settings" | "setting":
@@ -104,7 +100,8 @@ def main():
 if __name__ == "__main__":
     main()
 
-'''
+
+"""
 TODO
 
 - Default game, name all pokemon in range, in order
@@ -129,4 +126,4 @@ TODO
         - set must be the first one
 - ability to see all previously named pokemon
 - arrow key selection menu for start screen/settings screen
-'''
+"""
