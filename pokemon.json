@@ -1,5 +1,9 @@
 [
     {
+        "name": "placeholder",
+        "set": true
+    },
+    {
         "name": "bulbasaur",
         "set": true
     },

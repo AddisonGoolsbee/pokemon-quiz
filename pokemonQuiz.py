@@ -1,23 +1,25 @@
-# import random
-# import time
-# import os
-# import termios
-# import sys
-# import tty
+import random
+import time
+import os
+import termios
+import sys
+import tty
+
+GENERATION_CUTOFFS = [0, 151, 251, 386, 493, 649, 721, 809]
 
 
-# def get_char_input():
-#     fd = sys.stdin.fileno()
-#     old_settings = termios.tcgetattr(fd)
+def get_char_input():
+    fd = sys.stdin.fileno()
+    old_settings = termios.tcgetattr(fd)
 
-#     try:
-#         tty.setraw(sys.stdin.fileno())
-#         char = sys.stdin.read(1)
-#     finally:
-#         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-#     if char in ["\x03", "\x04"]:
-#         raise KeyboardInterrupt
-#     return char
+    try:
+        tty.setraw(sys.stdin.fileno())
+        char = sys.stdin.read(1)
+    finally:
+        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+    if char in ["\x03", "\x04"]:
+        raise KeyboardInterrupt
+    return char
 
 
 # def run_game(mode: str):
@@ -65,23 +67,40 @@
 #         exit()
 
 
-# def main():
-#     try:
-#         print("Press CTRL+C to quit")
-#         mode = input("Would you like to answer with the character or with the code?\n")
-#         while True:
-#             if (
-#                 mode.lower().strip().startswith("char")
-#                 or mode.lower().strip() == "code"
-#             ):
-#                 mode = "code" if mode.lower().strip() == "code" else "character"
-#                 run_game(mode)
-#             else:
-#                 mode = input('Invalid option, please type either "char" or "code"\n')
-#     except KeyboardInterrupt:
-#         print("\nYou're a bum")
+def game_setup():
+    selection = (
+        input(
+            "You are playing with the default settings. Press s to change them\nChoose a generation\nall  1  2  3  4  5  6  7\n"
+        )
+        .lower()
+        .strip()
+    )
+    while True:
+        match selection:
+            case "s" | "settings" | "setting":
+                selection = input(
+                    "Settings have not been implemented yet, please choose another option\n"
+                )
+            case "all" | "a" | "full":
+                return [GENERATION_CUTOFFS[0], GENERATION_CUTOFFS[-1]]
+            case "1" | "2" | "3" | "4" | "5" | "6" | "7":
+                return [
+                    GENERATION_CUTOFFS[int(selection) - 1],
+                    GENERATION_CUTOFFS[int(selection)],
+                ]
+            case _:
+                selection = input(
+                    'Invalid option, please type one of the following: s all 1 2 3 4 5 6 7"\n'
+                )
 
 
-# if __name__ == "__main__":
-#     main()
+def main():
+    try:
+        pokemon_range = game_setup()
+        print(pokemon_range)
+    except KeyboardInterrupt:
+        print("\nYou're a bum")
 
+
+if __name__ == "__main__":
+    main()
