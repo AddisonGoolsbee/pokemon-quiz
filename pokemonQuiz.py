@@ -7,7 +7,6 @@ import tty
 
 GENERATION_CUTOFFS = [0, 151, 251, 386, 493, 649, 721, 809]
 
-
 def get_char_input():
     fd = sys.stdin.fileno()
     old_settings = termios.tcgetattr(fd)
@@ -104,3 +103,29 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+'''
+TODO
+
+- Default game, name all pokemon in range, in order
+- win screen with statistics
+- only need to name first 5 letters
+- symbols/spaces are optionally excluded
+- don't need to press enter if correct
+- any pokemon in the current set counts for the whole set
+- indicator of how many you've gotten
+- skip button that tells you the answer
+- hint button that gives you the first letter
+- update readme
+- settings menu:
+    - json file storing user's default settings, gitignored
+    - first 5 letters vs full name
+    - symbol exclusion
+    - enter/automatic
+    - set skip
+    - hints enabled
+    - skips enabled
+    - ordered or unordered
+        - set must be the first one
+- ability to see all previously named pokemon
+'''
