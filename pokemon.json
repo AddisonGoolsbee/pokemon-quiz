@@ -602,5 +602,405 @@
     {
         "name": "mew",
         "set": true
+    },
+    {
+        "name": "chikorita",
+        "set": true
+    },
+    {
+        "name": "bayleef",
+        "set": false
+    },
+    {
+        "name": "meganium",
+        "set": false
+    },
+    {
+        "name": "cyndaquil",
+        "set": true
+    },
+    {
+        "name": "quilava",
+        "set": false
+    },
+    {
+        "name": "typhlosion",
+        "set": false
+    },
+    {
+        "name": "totodile",
+        "set": true
+    },
+    {
+        "name": "croconaw",
+        "set": false
+    },
+    {
+        "name": "feraligatr",
+        "set": false
+    },
+    {
+        "name": "sentret",
+        "set": true
+    },
+    {
+        "name": "furret",
+        "set": false
+    },
+    {
+        "name": "hoothoot",
+        "set": true
+    },
+    {
+        "name": "noctowl",
+        "set": false
+    },
+    {
+        "name": "ledyba",
+        "set": true
+    },
+    {
+        "name": "ledian",
+        "set": false
+    },
+    {
+        "name": "spinarak",
+        "set": true
+    },
+    {
+        "name": "ariados",
+        "set": false
+    },
+    {
+        "name": "crobat",
+        "set": true
+    },
+    {
+        "name": "chinchou",
+        "set": true
+    },
+    {
+        "name": "lanturn",
+        "set": false
+    },
+    {
+        "name": "pichu",
+        "set": true
+    },
+    {
+        "name": "cleffa",
+        "set": true
+    },
+    {
+        "name": "igglybuff",
+        "set": true
+    },
+    {
+        "name": "togepi",
+        "set": true
+    },
+    {
+        "name": "togetic",
+        "set": false
+    },
+    {
+        "name": "natur",
+        "set": true
+    },
+    {
+        "name": "xatu",
+        "set": false
+    },
+    {
+        "name": "mareep",
+        "set": true
+    },
+    {
+        "name": "flaaffy",
+        "set": false
+    },
+    {
+        "name": "ampharos",
+        "set": false
+    },
+    {
+        "name": "bellossom",
+        "set": true
+    },
+    {
+        "name": "marill",
+        "set": true
+    },
+    {
+        "name": "azumarill",
+        "set": false
+    },
+    {
+        "name": "sudowoodo",
+        "set": true
+    },
+    {
+        "name": "politoed",
+        "set": true
+    },
+    {
+        "name": "hoppip",
+        "set": true
+    },
+    {
+        "name": "skiploom",
+        "set": false
+    },
+    {
+        "name": "jumpluff",
+        "set": false
+    },
+    {
+        "name": "aipom",
+        "set": true
+    },
+    {
+        "name": "sunkern",
+        "set": true
+    },
+    {
+        "name": "sunflora",
+        "set": false
+    },
+    {
+        "name": "yanma",
+        "set": true
+    },
+    {
+        "name": "wooper",
+        "set": true
+    },
+    {
+        "name": "quagsire",
+        "set": false
+    },
+    {
+        "name": "espeon",
+        "set": true
+    },
+    {
+        "name": "umbreon",
+        "set": true
+    },
+    {
+        "name": "murkrow",
+        "set": true
+    },
+    {
+        "name": "slowking",
+        "set": true
+    },
+    {
+        "name": "misdreavus",
+        "set": true
+    },
+    {
+        "name": "unown",
+        "set": true
+    },
+    {
+        "name": "wobbuffet",
+        "set": true
+    },
+    {
+        "name": "girafarig",
+        "set": true
+    },
+    {
+        "name": "pineco",
+        "set": true
+    },
+    {
+        "name": "forretress",
+        "set": false
+    },
+    {
+        "name": "dunsparce",
+        "set": true
+    },
+    {
+        "name": "gligar",
+        "set": true
+    },
+    {
+        "name": "steelix",
+        "set": true
+    },
+    {
+        "name": "snubbull",
+        "set": false
+    },
+    {
+        "name": "granbull",
+        "set": false
+    },
+    {
+        "name": "qwilfish",
+        "set": true
+    },
+    {
+        "name": "scizor",
+        "set": true
+    },
+    {
+        "name": "shuckle",
+        "set": true
+    },
+    {
+        "name": "heracross",
+        "set": true
+    },
+    {
+        "name": "sneasel",
+        "set": true
+    },
+    {
+        "name": "teddiursa",
+        "set": true
+    },
+    {
+        "name": "ursaring",
+        "set": false
+    },
+    {
+        "name": "slugma",
+        "set": true
+    },
+    {
+        "name": "magca4rgo",
+        "set": false
+    },
+    {
+        "name": "swinub",
+        "set": true
+    },
+    {
+        "name": "piloswine",
+        "set": false
+    },
+    {
+        "name": "corsola",
+        "set": true
+    },
+    {
+        "name": "remoraid",
+        "set": true
+    },
+    {
+        "name": "octillery",
+        "set": false
+    },
+    {
+        "name": "delibird",
+        "set": true
+    },
+    {
+        "name": "mantine",
+        "set": true
+    },
+    {
+        "name": "skarmory",
+        "set": true
+    },
+    {
+        "name": "houndour",
+        "set": true
+    },
+    {
+        "name": "houndoom",
+        "set": false
+    },
+    {
+        "name": "kingdra",
+        "set": true
+    },
+    {
+        "name": "phanpy",
+        "set": true
+    },
+    {
+        "name": "donphan",
+        "set": false
+    },
+    {
+        "name": "porygon2",
+        "set": true
+    },
+    {
+        "name": "stantler",
+        "set": true
+    },
+    {
+        "name": "smeargle",
+        "set": true
+    },
+    {
+        "name": "tyrogue",
+        "set": true
+    },
+    {
+        "name": "hitmontop",
+        "set": true
+    },
+    {
+        "name": "smoochum",
+        "set": true
+    },
+    {
+        "name": "elekid",
+        "set": true
+    },
+    {
+        "name": "magby",
+        "set": true
+    },
+    {
+        "name": "miltank",
+        "set": true
+    },
+    {
+        "name": "blissey",
+        "set": true
+    },
+    {
+        "name": "raikou",
+        "set": true
+    },
+    {
+        "name": "enteir",
+        "set": true
+    },
+    {
+        "name": "suicune",
+        "set": true
+    },
+    {
+        "name": "larvitar",
+        "set": true
+    },
+    {
+        "name": "pupitar",
+        "set": false
+    },
+    {
+        "name": "tyranitar",
+        "set": false
+    },
+    {
+        "name": "lugia",
+        "set": true
+    },
+    {
+        "name": "ho-oh",
+        "set": true
+    },
+    {
+        "name": "celebi",
+        "set": true
     }
 ]

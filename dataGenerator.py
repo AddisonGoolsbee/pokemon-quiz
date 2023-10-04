@@ -2,6 +2,13 @@ import json
 import re
 
 data = []
+counter = 0
+
+try:
+    with open("pokemon.json", "r") as json_file:
+        data = json.load(json_file)
+except FileNotFoundError:
+    data = []
 
 while True:
     try:
@@ -9,19 +16,20 @@ while True:
         answer = input("Pokemon: ")
         newSet = answer[-1] != '.'
         name = re.sub(r'^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$', '', answer)
-        print(name, newSet)
 
         # Create a dictionary to store the data
-        data.append({
+        entry = {
             "name": name,
             "set": newSet
-        })
+        }
+        data.append(entry)
+        counter += 1
+
+
     except KeyboardInterrupt:
-        with open("pokemon.json", "w") as json_file:
-            # Convert the dictionary to JSON format
-            json_data = json.dumps(data, indent=4)
-            json_file.write(json_data)
-            print("Data written to pokemon.json")
-            break
+        with open("pokemon.json", 'w') as json_file:
+            json.dump(data, json_file, indent=4)
+        print(f'\nAdded {counter} entries')
+        break
 
 
