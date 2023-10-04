@@ -128,4 +128,5 @@ TODO
     - ordered or unordered
         - set must be the first one
 - ability to see all previously named pokemon
+- arrow key selection menu for start screen/settings screen
 '''
