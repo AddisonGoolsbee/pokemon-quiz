@@ -833,7 +833,7 @@
     },
     {
         "name": "snubbull",
-        "set": false
+        "set": true
     },
     {
         "name": "granbull",
@@ -1001,6 +1001,546 @@
     },
     {
         "name": "celebi",
+        "set": true
+    },
+    {
+        "name": "treecko",
+        "set": true
+    },
+    {
+        "name": "grovyle",
+        "set": false
+    },
+    {
+        "name": "sceptile",
+        "set": false
+    },
+    {
+        "name": "torchic",
+        "set": true
+    },
+    {
+        "name": "combusken",
+        "set": false
+    },
+    {
+        "name": "blaziken",
+        "set": false
+    },
+    {
+        "name": "mudkip",
+        "set": true
+    },
+    {
+        "name": "marshtomp",
+        "set": false
+    },
+    {
+        "name": "swampert",
+        "set": false
+    },
+    {
+        "name": "poochyena",
+        "set": true
+    },
+    {
+        "name": "mightyena",
+        "set": false
+    },
+    {
+        "name": "zigzagoon",
+        "set": true
+    },
+    {
+        "name": "linoone",
+        "set": false
+    },
+    {
+        "name": "wurmple",
+        "set": true
+    },
+    {
+        "name": "silcoon",
+        "set": false
+    },
+    {
+        "name": "beautifly",
+        "set": false
+    },
+    {
+        "name": "cascoon",
+        "set": true
+    },
+    {
+        "name": "dustox",
+        "set": false
+    },
+    {
+        "name": "lotad",
+        "set": true
+    },
+    {
+        "name": "lombre",
+        "set": false
+    },
+    {
+        "name": "ludicolo",
+        "set": false
+    },
+    {
+        "name": "seedot",
+        "set": true
+    },
+    {
+        "name": "nuzleaf",
+        "set": false
+    },
+    {
+        "name": "shiftry",
+        "set": false
+    },
+    {
+        "name": "taillow",
+        "set": true
+    },
+    {
+        "name": "swellow",
+        "set": false
+    },
+    {
+        "name": "wingull",
+        "set": true
+    },
+    {
+        "name": "pelipper",
+        "set": false
+    },
+    {
+        "name": "ralts",
+        "set": true
+    },
+    {
+        "name": "kirlia",
+        "set": false
+    },
+    {
+        "name": "gardevoir",
+        "set": false
+    },
+    {
+        "name": "surskit",
+        "set": true
+    },
+    {
+        "name": "masquerain",
+        "set": false
+    },
+    {
+        "name": "shroomish",
+        "set": true
+    },
+    {
+        "name": "breloom",
+        "set": false
+    },
+    {
+        "name": "slakoth",
+        "set": true
+    },
+    {
+        "name": "vigoroth",
+        "set": false
+    },
+    {
+        "name": "slaking",
+        "set": false
+    },
+    {
+        "name": "nincada",
+        "set": true
+    },
+    {
+        "name": "ninjask",
+        "set": false
+    },
+    {
+        "name": "shedinja",
+        "set": true
+    },
+    {
+        "name": "whismur",
+        "set": true
+    },
+    {
+        "name": "loudred",
+        "set": false
+    },
+    {
+        "name": "exploud",
+        "set": false
+    },
+    {
+        "name": "makuhita",
+        "set": true
+    },
+    {
+        "name": "hariyama",
+        "set": false
+    },
+    {
+        "name": "azurill",
+        "set": true
+    },
+    {
+        "name": "nosepass",
+        "set": true
+    },
+    {
+        "name": "skitty",
+        "set": true
+    },
+    {
+        "name": "delcatty",
+        "set": false
+    },
+    {
+        "name": "sableye",
+        "set": true
+    },
+    {
+        "name": "mawile",
+        "set": true
+    },
+    {
+        "name": "aron",
+        "set": true
+    },
+    {
+        "name": "lairon",
+        "set": false
+    },
+    {
+        "name": "aggron",
+        "set": false
+    },
+    {
+        "name": "meditite",
+        "set": true
+    },
+    {
+        "name": "medicham",
+        "set": false
+    },
+    {
+        "name": "electrike",
+        "set": true
+    },
+    {
+        "name": "manectric",
+        "set": false
+    },
+    {
+        "name": "plusle",
+        "set": true
+    },
+    {
+        "name": "minun",
+        "set": true
+    },
+    {
+        "name": "volbeat",
+        "set": true
+    },
+    {
+        "name": "illumise",
+        "set": true
+    },
+    {
+        "name": "roselia",
+        "set": true
+    },
+    {
+        "name": "gupin",
+        "set": true
+    },
+    {
+        "name": "swalot",
+        "set": false
+    },
+    {
+        "name": "carvanha",
+        "set": true
+    },
+    {
+        "name": "sharpedo",
+        "set": false
+    },
+    {
+        "name": "wailmer",
+        "set": true
+    },
+    {
+        "name": "wailord",
+        "set": false
+    },
+    {
+        "name": "numel",
+        "set": true
+    },
+    {
+        "name": "camerupt",
+        "set": false
+    },
+    {
+        "name": "torkoal",
+        "set": true
+    },
+    {
+        "name": "spoink",
+        "set": true
+    },
+    {
+        "name": "grumpig",
+        "set": false
+    },
+    {
+        "name": "spinda",
+        "set": true
+    },
+    {
+        "name": "trapinch",
+        "set": true
+    },
+    {
+        "name": "vibrava",
+        "set": false
+    },
+    {
+        "name": "flygon",
+        "set": false
+    },
+    {
+        "name": "cacnea",
+        "set": true
+    },
+    {
+        "name": "cacturne",
+        "set": false
+    },
+    {
+        "name": "swablu",
+        "set": true
+    },
+    {
+        "name": "altaria",
+        "set": false
+    },
+    {
+        "name": "zangoose",
+        "set": true
+    },
+    {
+        "name": "seviper",
+        "set": true
+    },
+    {
+        "name": "lunatone",
+        "set": true
+    },
+    {
+        "name": "solrock",
+        "set": true
+    },
+    {
+        "name": "barboach",
+        "set": true
+    },
+    {
+        "name": "whiscash",
+        "set": false
+    },
+    {
+        "name": "corphish",
+        "set": true
+    },
+    {
+        "name": "crawdaunt",
+        "set": false
+    },
+    {
+        "name": "baltoy",
+        "set": true
+    },
+    {
+        "name": "claydol",
+        "set": false
+    },
+    {
+        "name": "lileep",
+        "set": true
+    },
+    {
+        "name": "cradilly",
+        "set": false
+    },
+    {
+        "name": "anorith",
+        "set": true
+    },
+    {
+        "name": "armaldo",
+        "set": true
+    },
+    {
+        "name": "feebas",
+        "set": true
+    },
+    {
+        "name": "milotic",
+        "set": false
+    },
+    {
+        "name": "castform",
+        "set": true
+    },
+    {
+        "name": "kecleon",
+        "set": true
+    },
+    {
+        "name": "shuppet",
+        "set": true
+    },
+    {
+        "name": "banette",
+        "set": false
+    },
+    {
+        "name": "duskull",
+        "set": true
+    },
+    {
+        "name": "dusclops",
+        "set": false
+    },
+    {
+        "name": "tropius",
+        "set": true
+    },
+    {
+        "name": "chiimecho",
+        "set": true
+    },
+    {
+        "name": "absol",
+        "set": true
+    },
+    {
+        "name": "wynaut",
+        "set": true
+    },
+    {
+        "name": "snorunt",
+        "set": true
+    },
+    {
+        "name": "glalie",
+        "set": false
+    },
+    {
+        "name": "spheal",
+        "set": true
+    },
+    {
+        "name": "sealeo",
+        "set": false
+    },
+    {
+        "name": "walrein",
+        "set": false
+    },
+    {
+        "name": "clamperl",
+        "set": true
+    },
+    {
+        "name": "huntail",
+        "set": true
+    },
+    {
+        "name": "gorebyss",
+        "set": true
+    },
+    {
+        "name": "relicanth",
+        "set": true
+    },
+    {
+        "name": "luvdisc",
+        "set": true
+    },
+    {
+        "name": "bagon",
+        "set": true
+    },
+    {
+        "name": "shelgon",
+        "set": false
+    },
+    {
+        "name": "salamence",
+        "set": false
+    },
+    {
+        "name": "beldum",
+        "set": true
+    },
+    {
+        "name": "metand",
+        "set": false
+    },
+    {
+        "name": "metagross",
+        "set": true
+    },
+    {
+        "name": "regirock",
+        "set": true
+    },
+    {
+        "name": "regice",
+        "set": true
+    },
+    {
+        "name": "registeel",
+        "set": true
+    },
+    {
+        "name": "latias",
+        "set": true
+    },
+    {
+        "name": "latios",
+        "set": true
+    },
+    {
+        "name": "kyogre",
+        "set": true
+    },
+    {
+        "name": "groudon",
+        "set": true
+    },
+    {
+        "name": "rayquaza",
+        "set": true
+    },
+    {
+        "name": "jirachi",
+        "set": true
+    },
+    {
+        "name": "deoxys",
         "set": true
     }
 ]
