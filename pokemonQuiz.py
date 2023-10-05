@@ -7,19 +7,31 @@ import json
 
 GENERATION_CUTOFFS = [0, 151, 251, 386, 493, 649, 721, 809]
 
-
-def get_char_input():
+def get_input(prompt, answers):
+    input_str = ""
+    print(prompt, end="", flush=True)
     fd = sys.stdin.fileno()
     old_settings = termios.tcgetattr(fd)
-
     try:
-        tty.setraw(sys.stdin.fileno())
-        char = sys.stdin.read(1)
+        tty.setraw(fd)
+        while True:
+            user_char = sys.stdin.read(1)
+            if user_char in ["\x03", "\x04"]:
+                raise KeyboardInterrupt
+            elif user_char in ('\x08', '\x7f'):
+                if input_str:
+                    input_str = input_str[:-1]
+                    print('\b \b', end='', flush=True)
+            else:
+                print(user_char, end="", flush=True)
+                input_str += user_char
+                for i in answers:
+                    if len(input_str) == len(i[:5]) and input_str == i[:5]:
+                        return True
+                if len(input_str) >= 5:
+                    return False
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-    if char in ["\x03", "\x04"]:
-        raise KeyboardInterrupt
-    return char
 
 
 def print_listed_pokemon(pokemon: list):
@@ -60,14 +72,13 @@ def run_game(range: list):
         if item["name"] in listed_pokemon:
             skip = False
 
+        pokemon_set = get_pokemon_set(index, data)
         while skip:
             os.system("clear")
             print_listed_pokemon(listed_pokemon)
             print(f"{num_correct}/{num_pokemon}")
-            guess = input(f"{index}: ").strip().lower()
 
-            pokemon_set = get_pokemon_set(index, data)
-            if check_if_correct(guess, pokemon_set):
+            if get_input(f"{index}: ", pokemon_set):
                 num_correct += len(pokemon_set)
                 listed_pokemon += pokemon_set
                 break
@@ -160,14 +171,8 @@ if __name__ == "__main__":
 
 """
 TODO
-
-- Default game, name all pokemon in range, in order
 - win screen with statistics
-- only need to name first 5 letters
 - symbols/spaces are optionally excluded
-- don't need to press enter if correct
-- any pokemon in the current set counts for the whole set
-- indicator of how many you've gotten
 - skip button that tells you the answer
 - hint button that gives you the first letter
 - update readme
@@ -181,6 +186,5 @@ TODO
     - skips enabled
     - ordered or unordered
         - set must be the first one
-- ability to see all previously named pokemon
 - arrow key selection menu for start screen/settings screen
 """
