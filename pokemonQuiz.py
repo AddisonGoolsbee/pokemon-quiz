@@ -5,7 +5,7 @@ import sys
 import tty
 import json
 
-GENERATION_CUTOFFS = [0, 3, 251, 386, 493, 649, 721, 809]
+GENERATION_CUTOFFS = [0, 151, 251, 386, 493, 649, 721, 809]
 
 def get_input(prompt, answers):
     input_str = ""
