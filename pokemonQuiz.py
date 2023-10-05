@@ -21,18 +21,61 @@ def get_char_input():
         raise KeyboardInterrupt
     return char
 
+
+def print_listed_pokemon(pokemon: list):
+    for i in pokemon:
+        print(i, end=" ")
+    print()
+
+
+def get_pokemon_set(index: int, data: list):
+    pokemon_set = [data[index]["name"]]
+    if data[index]["set"]:
+        temp_index = index + 1
+        while temp_index < len(data) and not data[temp_index]["set"]:
+            pokemon_set.append(data[temp_index]["name"])
+            temp_index += 1
+    return pokemon_set
+
+
+def check_if_correct(guess: str, pokemon_set: list):
+    for name in pokemon_set:
+        if guess[:5] == name[:5]:
+            return True
+    return False
+
+
 def run_game(range: list):
-    with open("pokemon.json", 'r') as json_file:
+    with open("pokemon.json", "r") as json_file:
         data = json.load(json_file)
 
     num_pokemon = range[1] - range[0]
     num_correct = 0
     total_time = 0.0
 
-    for index, item in enumerate(data[range[0] + 1:range[1] + 1], start=1):
-        os.system("clear")
-        print(f'{num_correct}/num_pokemon')
-        print(f"Item {index}: {item}")
+    listed_pokemon = []
+
+    for index, item in enumerate(data[range[0] + 1 : range[1] + 1], start=range[0] + 1):
+        skip = True
+        if item["name"] in listed_pokemon:
+            skip = False
+
+        while skip:
+            os.system("clear")
+            print_listed_pokemon(listed_pokemon)
+            print(f"{num_correct}/{num_pokemon}")
+            guess = input(f"{index}: ").strip().lower()
+
+            pokemon_set = get_pokemon_set(index, data)
+            if check_if_correct(guess, pokemon_set):
+                num_correct += len(pokemon_set)
+                listed_pokemon += pokemon_set
+                break
+
+    os.system("clear")
+    print_listed_pokemon(listed_pokemon) 
+    print(f"{num_correct}/{num_pokemon}")     
+    print("Hooray!")
 
 
 # def run_game(mode: str):
