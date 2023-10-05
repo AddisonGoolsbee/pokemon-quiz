@@ -5,7 +5,7 @@ import sys
 import tty
 import json
 
-GENERATION_CUTOFFS = [0, 151, 251, 386, 493, 649, 721, 809]
+GENERATION_CUTOFFS = [0, 3, 251, 386, 493, 649, 721, 809]
 
 def get_input(prompt, answers):
     input_str = ""
@@ -63,7 +63,7 @@ def run_game(range: list):
 
     num_pokemon = range[1] - range[0]
     num_correct = 0
-    total_time = 0.0
+    start = time.time()
 
     listed_pokemon = []
 
@@ -87,6 +87,10 @@ def run_game(range: list):
     print_listed_pokemon(listed_pokemon) 
     print(f"{num_correct}/{num_pokemon}")     
     print("Hooray!")
+
+    total_time = time.time() - start
+    minutes, seconds = divmod(total_time, 60)
+    print(f"Time: {int(minutes)}:{int(seconds):02}")
 
 
 # def run_game(mode: str):
@@ -187,4 +191,5 @@ TODO
     - ordered or unordered
         - set must be the first one
 - arrow key selection menu for start screen/settings screen
+- figure out how to fix the sixth character problem: if I type bulbas, then it gets bulba and then gives me the s for the next pokemon
 """
