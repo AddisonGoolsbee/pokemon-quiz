@@ -92,52 +92,6 @@ def run_game(range: list):
     minutes, seconds = divmod(total_time, 60)
     print(f"Time: {int(minutes)}:{int(seconds):02}")
 
-
-# def run_game(mode: str):
-#     total_time = 0.0
-#     num_correct = 0
-#     num_questions = 0
-#     os.system("clear")
-#     print("Press CTRL+C at any time to quit and view your score\n")
-#     try:
-#         while True:
-#             if mode == "character":
-#                 prompt = random.sample(list(morse_code.keys()), 1)[0]
-#                 answer = morse_code[prompt]
-#             else:
-#                 answer = random.sample(list(morse_code.keys()), 1)[0]
-#                 prompt = morse_code[answer]
-
-#             start = time.time()
-#             if mode == "character":
-#                 print(prompt)
-#                 guess = get_char_input()
-#             else:
-#                 guess = input(prompt + "\n")
-#             guess = guess.upper().strip()
-#             end = time.time()
-
-#             num_questions += 1
-#             os.system("clear")
-#             if guess == answer:
-#                 num_correct += 1
-#                 print(
-#                     f"{guess} is correct!    Time: {end - start:0.3f}s    {num_correct}/{num_questions}\n"
-#                 )
-#                 total_time += end - start
-#             elif guess == "":
-#                 print(f"The answer was {answer}\n")
-#             else:
-#                 print(f"{guess} is wrong!\n")
-
-#     except KeyboardInterrupt:
-#         num_questions = max(num_questions, 1)
-#         print(
-#             f"\nAccuracy: {float(num_correct) / num_questions * 100:0.1f}%\nAverage Speed: {total_time / num_questions:0.3f}s"
-#         )
-#         exit()
-
-
 # Choose settings and generation for the quiz
 def game_setup():
     message = "You are playing with the default settings. Press s to change them\nChoose a generation\nall  1  2  3  4  5  6  7\n"
@@ -194,4 +148,6 @@ TODO
 - figure out how to fix the sixth character problem: if I type bulbas, then it gets bulba and then gives me the s for the next pokemon
 - pokemon names don't wrap around the command line
 - pause button
+- only take in normal keys
+- control keys for special features, message at top explaining features
 """
