@@ -2,7 +2,9 @@
 
 Command line tool for myself (and probably only myself) to see if I can list all Pokemon in order, with various variations
 
-During the pandemic, one of the (few) things I did was memorize the first ~800 Pokemon in order. I'm not into Pokemon anymore, but being able to list the first 800 Pokemon is such an impressive skill that I don't want to forget. No existing tool does exactly what I want. [Visit OpenAI](https://www.openai.com/) comes the closest, but everything has drawbacks. So I created the exact tool I wanted. Hooray
+During the pandemic, one of the (few) things I did was memorize the first ~800 Pokemon in order. I'm not into Pokemon anymore, but being able to list the first 800 Pokemon is such an impressive skill that I don't want to forget. No existing tool does exactly what I want in an optimized fashion. [pkmnquiz.com](https://pkmnquiz.com/) comes the closest, but it has its drawbacks, just like every other existing tool. 
+
+So I created the exact tool I wanted. Hooray.
 
 ## Running the Program
 
