@@ -58,7 +58,9 @@ def check_if_correct(guess: str, pokemon_set: list):
 
 
 def run_game(range: list):
-    with open("pokemon.json", "r") as json_file:
+    current_file_path = os.path.abspath(__file__)
+    current_directory = os.path.dirname(current_file_path)
+    with open(current_directory + "/pokemon.json", "r") as json_file:
         data = json.load(json_file)
 
     num_pokemon = range[1] - range[0]
