@@ -19,6 +19,12 @@ def first_5_alphanumeric(s):
                 break
     return result
 
+def handle_hint(input_str, answer):
+    global current_hint
+    if len(input_str) == 5 and input_str.lower().strip() in ['help', 'hint']:
+        if (len(current_hint) < len(answer)):
+            current_hint += answer[len(current_hint)]
+
 
 def validate_guess(prompt, answers):
     global current_hint
@@ -46,8 +52,8 @@ def validate_guess(prompt, answers):
                 print(user_char, end="", flush=True)
                 input_str += user_char
 
-                if input_str.lower().strip() in ['help', 'hint'] and len(current_hint) < len(answers[0]):
-                    current_hint += answers[0][len(current_hint)]
+                if handle_hint(input_str, answers[0]):
+                    return False
 
                 for i in answers:
                     if (len(input_str) == len(i[:5]) and input_str == i[:5]) or (
@@ -56,8 +62,10 @@ def validate_guess(prompt, answers):
                     ):
                         current_hint = ''
                         return True
-                if len(input_str) >= 5:
+                    
+                if len(input_str) >= 5 or user_char in ['\n', '\r']:
                     return False
+
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
 
@@ -174,7 +182,6 @@ TODO
 - if key is enter
 - win screen with statistics
 - skip button that tells you the answer
-- hint button that gives you the first letter
 - update readme
 - settings menu:
     - json file storing user's default settings, gitignored
