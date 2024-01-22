@@ -7,6 +7,8 @@ import json
 
 GENERATION_CUTOFFS = [0, 151, 251, 386, 493, 649, 721, 809]
 
+current_hint = ''
+
 
 def first_5_alphanumeric(s):
     result = ""
@@ -19,8 +21,12 @@ def first_5_alphanumeric(s):
 
 
 def validate_guess(prompt, answers):
-    input_str = ""
+    global current_hint
+    if current_hint:
+        print(f'Hint: {current_hint}')
     print(prompt, end="", flush=True)
+
+    input_str = ""
     fd = sys.stdin.fileno()
     old_settings = termios.tcgetattr(fd)
     try:
@@ -39,11 +45,16 @@ def validate_guess(prompt, answers):
             else:
                 print(user_char, end="", flush=True)
                 input_str += user_char
+
+                if input_str.lower().strip() in ['help', 'hint'] and len(current_hint) < len(answers[0]):
+                    current_hint += answers[0][len(current_hint)]
+
                 for i in answers:
                     if (len(input_str) == len(i[:5]) and input_str == i[:5]) or (
                         len(input_str) == len(first_5_alphanumeric(i)[:5])
                         and input_str == first_5_alphanumeric(i)[:5]
                     ):
+                        current_hint = ''
                         return True
                 if len(input_str) >= 5:
                     return False
@@ -159,6 +170,7 @@ if __name__ == "__main__":
 
 """
 TODO
+- make code object oriented
 - if key is enter
 - win screen with statistics
 - skip button that tells you the answer
