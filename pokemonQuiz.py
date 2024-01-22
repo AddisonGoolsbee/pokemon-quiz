@@ -7,6 +7,7 @@ import json
 
 GENERATION_CUTOFFS = [0, 151, 251, 386, 493, 649, 721, 809]
 
+
 def get_input(prompt, answers):
     input_str = ""
     print(prompt, end="", flush=True)
@@ -18,10 +19,10 @@ def get_input(prompt, answers):
             user_char = sys.stdin.read(1)
             if user_char in ["\x03", "\x04"]:
                 raise KeyboardInterrupt
-            elif user_char in ('\x08', '\x7f'):
+            elif user_char in ("\x08", "\x7f"):
                 if input_str:
                     input_str = input_str[:-1]
-                    print('\b \b', end='', flush=True)
+                    print("\b \b", end="", flush=True)
             else:
                 print(user_char, end="", flush=True)
                 input_str += user_char
@@ -33,10 +34,19 @@ def get_input(prompt, answers):
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
 
-
 def print_listed_pokemon(pokemon: list):
-    for i in pokemon:
-        print(i, end=" ")
+    terminal_width = os.get_terminal_size().columns
+    current_line_length = 0
+
+    for poke in pokemon:
+        poke_length = len(poke) + 1 # +1 for space
+        if current_line_length + poke_length > terminal_width:
+            print()
+            current_line_length = 0 
+
+        print(poke, end=" ")
+        current_line_length += poke_length
+
     print()
 
 
@@ -86,17 +96,18 @@ def run_game(range: list):
                 break
 
     os.system("clear")
-    print_listed_pokemon(listed_pokemon) 
-    print(f"{num_correct}/{num_pokemon}")     
+    print_listed_pokemon(listed_pokemon)
+    print(f"{num_correct}/{num_pokemon}")
     print("Hooray!")
 
     total_time = time.time() - start
     minutes, seconds = divmod(total_time, 60)
     print(f"Time: {int(minutes)}:{int(seconds):02}")
 
+
 # Choose settings and generation for the quiz
 def game_setup():
-    message = "You are playing with the default settings. Press s to change them\nChoose a generation\nall  1  2  3  4  5  6  7\n"
+    message = "You are playing with the default settings. Press s to change them\nChoose a generation\n1  2  3  4  5  6  7 all\n"
     selection = input(message).lower().strip()
     while True:
         match selection:
@@ -113,7 +124,7 @@ def game_setup():
                 ]
             case _:
                 selection = input(
-                    'Invalid option, please type one of the following: s all 1 2 3 4 5 6 7"\n'
+                    'Invalid option, please type one of the following: 1 2 3 4 5 6 7 all settings"\n'
                 )
 
 
