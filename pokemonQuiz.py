@@ -8,7 +8,17 @@ import json
 GENERATION_CUTOFFS = [0, 151, 251, 386, 493, 649, 721, 809]
 
 
-def get_input(prompt, answers):
+def first_5_alphanumeric(s):
+    result = ""
+    for char in s:
+        if char.isalnum():
+            result += char
+            if len(result) == 5:
+                break
+    return result
+
+
+def validate_guess(prompt, answers):
     input_str = ""
     print(prompt, end="", flush=True)
     fd = sys.stdin.fileno()
@@ -17,32 +27,39 @@ def get_input(prompt, answers):
         tty.setraw(fd)
         while True:
             user_char = sys.stdin.read(1)
+            # key is ^C or ^D
             if user_char in ["\x03", "\x04"]:
                 raise KeyboardInterrupt
+            # key is delete
             elif user_char in ("\x08", "\x7f"):
                 if input_str:
                     input_str = input_str[:-1]
                     print("\b \b", end="", flush=True)
+            # normal key
             else:
                 print(user_char, end="", flush=True)
                 input_str += user_char
                 for i in answers:
-                    if len(input_str) == len(i[:5]) and input_str == i[:5]:
+                    if (len(input_str) == len(i[:5]) and input_str == i[:5]) or (
+                        len(input_str) == len(first_5_alphanumeric(i)[:5])
+                        and input_str == first_5_alphanumeric(i)[:5]
+                    ):
                         return True
                 if len(input_str) >= 5:
                     return False
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
 
+
 def print_listed_pokemon(pokemon: list):
     terminal_width = os.get_terminal_size().columns
     current_line_length = 0
 
     for poke in pokemon:
-        poke_length = len(poke) + 1 # +1 for space
+        poke_length = len(poke) + 1  # +1 for space
         if current_line_length + poke_length > terminal_width:
             print()
-            current_line_length = 0 
+            current_line_length = 0
 
         print(poke, end=" ")
         current_line_length += poke_length
@@ -90,7 +107,7 @@ def run_game(range: list):
             print_listed_pokemon(listed_pokemon)
             print(f"{num_correct}/{num_pokemon}")
 
-            if get_input(f"{index}: ", pokemon_set):
+            if validate_guess(f"{index}: ", pokemon_set):
                 num_correct += len(pokemon_set)
                 listed_pokemon += pokemon_set
                 break
@@ -142,8 +159,8 @@ if __name__ == "__main__":
 
 """
 TODO
+- if key is enter
 - win screen with statistics
-- symbols/spaces are optionally excluded
 - skip button that tells you the answer
 - hint button that gives you the first letter
 - update readme
