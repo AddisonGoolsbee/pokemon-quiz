@@ -179,7 +179,6 @@ if __name__ == "__main__":
 """
 TODO
 - make code object oriented
-- if key is enter
 - win screen with statistics
 - skip button that tells you the answer
 - update readme
