@@ -159,7 +159,6 @@ TODO
         - set must be the first one
 - arrow key selection menu for start screen/settings screen
 - figure out how to fix the sixth character problem: if I type bulbas, then it gets bulba and then gives me the s for the next pokemon
-- pokemon names don't wrap around the command line
 - pause button
 - only take in normal keys
 - control keys for special features, message at top explaining features
