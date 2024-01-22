@@ -20,6 +20,7 @@
 - prevent entire terminal from reprinting (possible?)
 - update readme
 - cmd + delete to delete entire line; cmd + delete glitch
+- name every 25 pokemon; every 10
 
 ## Design Issues
 

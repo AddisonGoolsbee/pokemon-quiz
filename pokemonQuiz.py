@@ -7,7 +7,7 @@ import json
 
 GENERATION_CUTOFFS = [0, 151, 251, 386, 493, 649, 721, 809]
 
-current_hint = ''
+current_hint = ""
 
 
 def first_5_alphanumeric(s):
@@ -19,17 +19,18 @@ def first_5_alphanumeric(s):
                 break
     return result
 
+
 def handle_hint(input_str, answer):
     global current_hint
-    if len(input_str) == 5 and input_str.lower().strip() in ['help', 'hint']:
-        if (len(current_hint) < len(answer)):
+    if len(input_str) == 5 and input_str.lower().strip() in ["help", "hint"]:
+        if len(current_hint) < len(answer):
             current_hint += answer[len(current_hint)]
 
 
 def validate_guess(prompt, answers):
     global current_hint
     if current_hint:
-        print(f'Hint: {current_hint}')
+        print(f"Hint: {current_hint}")
     print(prompt, end="", flush=True)
 
     input_str = ""
@@ -60,10 +61,10 @@ def validate_guess(prompt, answers):
                         len(input_str) == len(first_5_alphanumeric(i)[:5])
                         and input_str == first_5_alphanumeric(i)[:5]
                     ):
-                        current_hint = ''
+                        current_hint = ""
                         return True
-                    
-                if len(input_str) >= 5 or user_char in ['\n', '\r']:
+
+                if len(input_str) >= 5 or user_char in ["\n", "\r"]:
                     return False
 
     finally:
@@ -93,6 +94,14 @@ def get_pokemon_set(index: int, data: list):
         while temp_index < len(data) and not data[temp_index]["set"]:
             pokemon_set.append(data[temp_index]["name"])
             temp_index += 1
+
+    # print(data)
+    # num = 0
+    # for i in data[::25]:
+    #     print(str(num) + ": " + i["name"])
+    #     num += 25
+    # exit()
+
     return pokemon_set
 
 
