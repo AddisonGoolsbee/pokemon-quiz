@@ -1,0 +1,27 @@
+# TODO
+
+- make code object oriented
+- win screen with statistics
+- skip button
+- update readme
+- settings menu:
+  - json file storing user's default settings, gitignored
+  - first 5 letters vs full name
+  - symbol exclusion
+  - enter/automatic
+  - sets
+  - hints enabled
+  - skips enabled
+  - unordered, ordered, ordered where for a set you must name the first pokemon
+- arrow key selection menu for start screen/settings screen
+- visible timer
+- pause
+- only take in normal keys
+- control keys for special features, message at top explaining features
+- prevent entire terminal from reprinting (possible?)
+
+## Design Issues
+
+- 6th character problem: if I type bulbas, then it gets bulba and then gives me the s for the next pokemon
+- 5 character spoilers: nidoran-f vs nidoran-m, hitmonlee vs hitmonchan, kabuto vs kabutops, mew vs mewtwo
+- Sets with evolution splits: slowpoke, slowbro, ... , slowking: how to verify you knew slowking was a different generation? If you have to name each individually, it will spoil that something is wrong with this evolution line

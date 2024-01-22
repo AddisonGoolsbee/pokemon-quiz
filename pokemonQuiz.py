@@ -174,27 +174,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-"""
-TODO
-- make code object oriented
-- win screen with statistics
-- skip button that tells you the answer
-- update readme
-- settings menu:
-    - json file storing user's default settings, gitignored
-    - first 5 letters vs full name
-    - symbol exclusion
-    - enter/automatic
-    - set skip
-    - hints enabled
-    - skips enabled
-    - ordered or unordered
-        - set must be the first one
-- arrow key selection menu for start screen/settings screen
-- figure out how to fix the sixth character problem: if I type bulbas, then it gets bulba and then gives me the s for the next pokemon
-- pause button
-- only take in normal keys
-- control keys for special features, message at top explaining features
-"""
