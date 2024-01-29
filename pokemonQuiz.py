@@ -10,10 +10,9 @@ class Game:
 
     def __init__(self):
         self.current_hint = ""
-        # Other initialization code
 
-    # Choose settings and generation for the quiz
-    def game_setup(self):
+    # Choose settings and pokemon listing for the next quiz
+    def setup(self):
         message = "You are playing with the default settings. Press s to change them\nChoose a generation\n1  2  3  4  5  6  7 all\n"
         selection = input(message).lower().strip()
         while True:
@@ -33,8 +32,9 @@ class Game:
                     selection = input(
                         'Invalid option, please type one of the following: 1 2 3 4 5 6 7 all settings"\n'
                     )
+                    
     
-    def run_game(self, pokemon_range: list):
+    def run_quiz(self, pokemon_range: list):
         current_file_path = os.path.abspath(__file__)
         current_directory = os.path.dirname(current_file_path)
         with open(current_directory + "/pokemon.json", "r") as json_file:
@@ -70,6 +70,7 @@ class Game:
         total_time = time.time() - start
         minutes, seconds = divmod(total_time, 60)
         print(f"Time: {int(minutes)}:{int(seconds):02}")
+
 
     def validate_guess(self, prompt, answers):
         if self.current_hint:
@@ -172,8 +173,8 @@ class GameUtils:
 def main():
     try:
         game = Game()
-        pokemon_range = game.game_setup()
-        game.run_game(pokemon_range)
+        pokemon_range = game.setup()
+        game.run_quiz(pokemon_range)
     except KeyboardInterrupt:
         print("\nYou're a bum")
 
