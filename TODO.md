@@ -21,6 +21,7 @@
 - update readme
 - cmd + delete to delete entire line; cmd + delete glitch
 - name every 25 pokemon; every 10
+- continue program after finishing a game
 
 ## Design Issues
 
