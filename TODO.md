@@ -10,6 +10,8 @@
   - hints
   - skips
   - unordered, ordered, ordered where for a set you must name the first pokemon
+  - show accuracy while playing
+  - show current number vs percent completed while playing
   - arrow key selection menu for start screen/settings screen
 - visible timer
 - pause
