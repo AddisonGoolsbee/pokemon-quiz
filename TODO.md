@@ -1,10 +1,5 @@
 # TODO
 
-- win screen with statistics
-  - accuracy
-  - time
-  - hardest pokemon
-  - number of hints used
 - skip button
 - settings menu:
   - json file storing user's default settings, gitignored
