@@ -4,6 +4,7 @@
   - accuracy
   - time
   - hardest pokemon
+  - number of hints used
 - skip button
 - settings menu:
   - json file storing user's default settings, gitignored
@@ -24,7 +25,7 @@
 - cmd + delete to delete entire line; cmd + delete glitch
 - name every 25 pokemon; every 10
 - continue program after finishing a game
-- keep track of records
+- keep track of record times/accuracies
 
 ## Design Issues
 
