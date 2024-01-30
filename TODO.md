@@ -1,7 +1,9 @@
 # TODO
 
-- make code object oriented
 - win screen with statistics
+  - accuracy
+  - time
+  - hardest pokemon
 - skip button
 - settings menu:
   - json file storing user's default settings, gitignored
@@ -22,6 +24,7 @@
 - cmd + delete to delete entire line; cmd + delete glitch
 - name every 25 pokemon; every 10
 - continue program after finishing a game
+- keep track of records
 
 ## Design Issues
 

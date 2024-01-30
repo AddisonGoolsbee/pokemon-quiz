@@ -23,7 +23,7 @@ class Game:
         self.current_hint = ""
         self.pokemon = self.load_data()
 
-    def load_data(self):
+    def load_data(self) -> list[Pokemon]:
         current_file_path = os.path.abspath(__file__)
         current_directory = os.path.dirname(current_file_path)
         with open(current_directory + "/pokemon.json", "r") as json_file:
