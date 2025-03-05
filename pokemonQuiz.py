@@ -4,6 +4,7 @@ import termios
 import sys
 import tty
 import json
+import curses
 
 
 class Pokemon:
@@ -70,22 +71,43 @@ class Game:
         sys.stdout.write("\n" * terminal_height)
         sys.stdout.write("\033[2J\033[H")
 
-        message = "You are playing with the default settings. Press s to change them\nChoose a generation\n1  2  3  4  5  6  7 all\n"
-        selection = input(message).lower().strip()
-        while True:
-            match selection:
-                case "s" | "settings" | "setting":
-                    selection = input("Settings have not been implemented yet, please choose another option\n")
-                case "all" | "a" | "full":
-                    return [self.GENERATION_CUTOFFS[0], self.GENERATION_CUTOFFS[-1]]
-                case "1" | "2" | "3" | "4" | "5" | "6" | "7":
-                    sys.stdout.write("\033[2J\033[H")
-                    return [
-                        self.GENERATION_CUTOFFS[int(selection) - 1],
-                        self.GENERATION_CUTOFFS[int(selection)],
-                    ]
-                case _:
-                    selection = input('Invalid option, please type one of the following: 1 2 3 4 5 6 7 all settings"\n')
+        options = ["All", "1", "2", "3", "4", "5", "6", "7"]
+        selected_index = 0
+
+        def draw_menu(stdscr):
+            nonlocal selected_index
+            curses.curs_set(0)  # Hide cursor
+            curses.use_default_colors()
+            stdscr.bkgd(" ")
+            
+            while True:
+                stdscr.erase()
+                stdscr.addstr(0, 0, "Choose a generation\n")
+                for i, option in enumerate(options):
+                    if i == selected_index:
+                        stdscr.addstr(f"> {option}  \n", curses.A_REVERSE)  # Highlight selection
+                    else:
+                        stdscr.addstr(f"  {option}  \n")
+                
+                key = stdscr.getch()
+
+                if key == curses.KEY_UP:
+                    selected_index = (selected_index - 1) % len(options)
+                elif key == curses.KEY_DOWN:
+                    selected_index = (selected_index + 1) % len(options)
+                elif key in (curses.KEY_ENTER, 10, 13, 32):  # Enter key
+                    return options[selected_index].lower()
+
+        selection = curses.wrapper(draw_menu)
+
+        # Process selection
+        if selection in {"All"}:
+            return [self.GENERATION_CUTOFFS[0], self.GENERATION_CUTOFFS[-1]]
+        elif selection in {"1", "2", "3", "4", "5", "6", "7"}:
+            return [
+                self.GENERATION_CUTOFFS[int(selection) - 1],
+                self.GENERATION_CUTOFFS[int(selection)],
+            ]
 
     def run_quiz(self, pokemon_range: list):
         self.stats = Stats()

@@ -1,5 +1,13 @@
 # TODO
 
+## Features
+
+- Given a number name the pokemon
+  - name every 25 pokemon; every 10
+- Given a pokemon name the number
+
+## QoL
+
 - skip button
 - settings menu:
   - json file storing user's default settings, gitignored
@@ -13,16 +21,16 @@
   - show accuracy while playing
   - show current number vs percent completed while playing
   - arrow key selection menu for start screen/settings screen
+  - relative index vs national index
 - visible timer
 - pause
 - only take in normal keys
 - control keys for special features, message at top explaining features
-- prevent entire terminal from reprinting (possible?)
 - update readme
 - cmd + delete to delete entire line; cmd + delete glitch
-- name every 25 pokemon; every 10
 - continue program after finishing a game
 - keep track of record times/accuracies
+- ordered sets should autocomplete the last one but require in-order for the rest: articuno, zapdos, auto; lunatone, auto; zangoose, auto; vaporeon jolteon auto etc
 
 ## Design Issues
 
