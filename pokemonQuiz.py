@@ -18,23 +18,36 @@ class Pokemon:
 
 class Stats:
     def __init__(self):
-        self.most_difficult_pokemon = ''
+        self.most_difficult_pokemon = ""
         self.most_difficult_pokemon_time = 0
         self.num_correct = 0
         self.num_incorrect = 0
         self.time_start = time.time()
         self.hints_used = 0
-        
+
     def __str__(self):
         total_time = time.time() - self.time_start
         minutes, seconds = divmod(total_time, 60)
         accuracy = self.num_correct / (self.num_correct + self.num_incorrect)
-        return f'Time: {int(minutes)}:{int(seconds):02}    Accuracy: {accuracy:.1%}    Hints used: {self.hints_used}    Most difficult Pokemon: {self.most_difficult_pokemon.capitalize()}'
+        return f"Time: {int(minutes)}:{int(seconds):02}    Accuracy: {accuracy:.1%}    Hints used: {self.hints_used}    Most difficult Pokemon: {self.most_difficult_pokemon.capitalize()}"
 
 
 class Game:
     GENERATION_CUTOFFS = [0, 151, 251, 386, 493, 649, 721, 809]
-    less_than_5_letter_pokemon = ['abra', 'muk', 'onix', 'jynx', 'mew', 'natu', 'xatu', 'hooh', 'aron', 'uxie', 'sawk', 'axew']
+    less_than_5_letter_pokemon = [
+        "abra",
+        "muk",
+        "onix",
+        "jynx",
+        "mew",
+        "natu",
+        "xatu",
+        "hooh",
+        "aron",
+        "uxie",
+        "sawk",
+        "axew",
+    ]
 
     def __init__(self):
         self.current_hint = ""
@@ -53,25 +66,26 @@ class Game:
 
     # Choose settings and pokemon listing for the next quiz
     def setup(self):
+        terminal_height = os.get_terminal_size().lines
+        sys.stdout.write("\n" * terminal_height)
+        sys.stdout.write("\033[2J\033[H")
+
         message = "You are playing with the default settings. Press s to change them\nChoose a generation\n1  2  3  4  5  6  7 all\n"
         selection = input(message).lower().strip()
         while True:
             match selection:
                 case "s" | "settings" | "setting":
-                    selection = input(
-                        "Settings have not been implemented yet, please choose another option\n"
-                    )
+                    selection = input("Settings have not been implemented yet, please choose another option\n")
                 case "all" | "a" | "full":
                     return [self.GENERATION_CUTOFFS[0], self.GENERATION_CUTOFFS[-1]]
                 case "1" | "2" | "3" | "4" | "5" | "6" | "7":
+                    sys.stdout.write("\033[2J\033[H")
                     return [
                         self.GENERATION_CUTOFFS[int(selection) - 1],
                         self.GENERATION_CUTOFFS[int(selection)],
                     ]
                 case _:
-                    selection = input(
-                        'Invalid option, please type one of the following: 1 2 3 4 5 6 7 all settings"\n'
-                    )
+                    selection = input('Invalid option, please type one of the following: 1 2 3 4 5 6 7 all settings"\n')
 
     def run_quiz(self, pokemon_range: list):
         self.stats = Stats()
@@ -89,9 +103,7 @@ class Game:
                 pokemon_set = self.get_pokemon_set(index)
                 current_pokemon_start_time = time.time()
                 while True:
-                    os.system("clear")
-                    self.print_listed_pokemon(answered_pokemon)
-                    print(f"{num_correct}/{num_pokemon}    Accuracy: {self.stats.num_correct}/{self.stats.num_incorrect + self.stats.num_correct}")
+                    self.print_listed_pokemon(answered_pokemon, num_correct, num_pokemon)
 
                     if self.validate_guess(f"{index}: ", pokemon_set):
                         num_correct += len(pokemon_set)
@@ -102,15 +114,14 @@ class Game:
                             self.stats.most_difficult_pokemon_time = current_pokemon_duration
                         break
 
-        os.system("clear")
         self.print_listed_pokemon(answered_pokemon)
-        print(f"{num_correct}/{num_pokemon}")
         print("Hooray!")
         print(self.stats)
 
     def validate_guess(self, prompt, answers):
         if self.current_hint:
             print(f"Hint: {self.current_hint}")
+        sys.stdout.write("\033[K")
         print(prompt, end="", flush=True)
 
         input_str = ""
@@ -146,35 +157,42 @@ class Game:
                             self.stats.num_correct += 1
                             return True
 
-                    if len(input_str) >= 5 or user_char in ["\n", "\r"] or input_str.lower() in self.less_than_5_letter_pokemon:
-                        if input_str.lower() == 'mew' and 'mewtwo' in answers:
+                    if (
+                        len(input_str) >= 5
+                        or user_char in ["\n", "\r"]
+                        or input_str.lower() in self.less_than_5_letter_pokemon
+                    ):
+                        if input_str.lower() == "mew" and "mewtwo" in answers:
                             continue
                         self.check_if_guess_incorrect(input_str)
                         return False
 
         finally:
             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-    
+
     def check_if_guess_incorrect(self, input_str):
         # checks whether the guess was a typo or an actual wrong pokemon, in which case increment the num_incorrect stat
         # add check for if it was part of the previous set
         for pokemon in self.pokemon:
             if (len(input_str) == len(pokemon.name[:5]) and input_str == pokemon.name[:5]) or (
-                    len(input_str) == len(GameUtils.first_5_alphanumeric(pokemon.name)[:5])
-                    and input_str == GameUtils.first_5_alphanumeric(pokemon.name)[:5]
-                ):
+                len(input_str) == len(GameUtils.first_5_alphanumeric(pokemon.name)[:5])
+                and input_str == GameUtils.first_5_alphanumeric(pokemon.name)[:5]
+            ):
                 self.stats.num_incorrect += 1
                 return
 
     def handle_hint(self, input_str, answer):
         if len(input_str) == 5 and input_str.lower().strip() in ["help", "hint"]:
             if len(self.current_hint) < len(answer):
-                if self.current_hint == '':
+                if self.current_hint == "":
                     self.stats.hints_used += 1
                 self.current_hint += answer[len(self.current_hint)]
 
-    def print_listed_pokemon(self, pokemon: list):
+    def print_listed_pokemon(self, pokemon: list, num_correct: int, num_pokemon: int):
         terminal_width = os.get_terminal_size().columns
+        num_lines = (sum(len(poke) + 1 for poke in pokemon) // terminal_width) + 2
+        sys.stdout.write("\033[F" * num_lines)
+        sys.stdout.flush()
         current_line_length = 0
 
         for poke in pokemon:
@@ -186,7 +204,10 @@ class Game:
             print(poke, end=" ")
             current_line_length += poke_length
 
-        print()
+        print(" " * (terminal_width - current_line_length))
+        print(
+            f"{num_correct}/{num_pokemon}    Accuracy: {self.stats.num_correct}/{self.stats.num_incorrect + self.stats.num_correct}"
+        )
 
     def get_pokemon_set(self, index: int):
         pokemon_set = [self.pokemon[index].name]
@@ -195,13 +216,6 @@ class Game:
             while temp_index < len(self.pokemon) and not self.pokemon[temp_index].set:
                 pokemon_set.append(self.pokemon[temp_index].name)
                 temp_index += 1
-
-        # print(data)
-        # num = 0
-        # for i in data[::25]:
-        #     print(str(num) + ": " + i["name"])
-        #     num += 25
-        # exit()
 
         return pokemon_set
 
