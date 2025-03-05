@@ -3,4 +3,4 @@
 # cp pokemon ~/.local/bin/pokemon-quiz
 
 
-python3 /Users/addisongoolsbee/Documents/coding/pokemon-quiz/pokemonQuiz.py
+python3 ~/Documents/coding/pokemon-quiz/pokemonQuiz.py
