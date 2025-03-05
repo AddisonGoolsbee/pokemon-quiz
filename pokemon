@@ -1,6 +1,0 @@
-#!/bin/bash
-# put this file in ~/.local/bin to run it anywhere, using the following command:
-# cp pokemon ~/.local/bin/pokemon-quiz
-
-
-python3 /Users/addisongoolsbee/Documents/coding/pokemon-quiz/pokemonQuiz.py
