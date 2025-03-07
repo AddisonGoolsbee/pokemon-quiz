@@ -5,6 +5,7 @@ import sys
 import tty
 import json
 import curses
+import random
 
 
 class Pokemon:
@@ -71,45 +72,59 @@ class Game:
         sys.stdout.write("\n" * terminal_height)
         sys.stdout.write("\033[2J\033[H")
 
-        options = ["All", "1", "2", "3", "4", "5", "6", "7"]
-        selected_index = 0
+        # First menu options
+        mode_options = ["Name 'em", "By number", "By name"]
+        selected_mode_index = 0
 
-        def draw_menu(stdscr):
-            nonlocal selected_index
-            curses.curs_set(0)  # Hide cursor
+        # Second menu options
+        generation_options = ["All", "1", "2", "3", "4", "5", "6", "7"]
+        number_name_options = ["All", "Every 10", "Every 25"]
+        selected_second_index = 0
+
+        def draw_menu(stdscr, options, title):
+            """Generic function to draw a menu and return the selected option."""
+            selected_index = 0
+            curses.curs_set(0)
             curses.use_default_colors()
             stdscr.bkgd(" ")
-            
+
             while True:
                 stdscr.erase()
-                stdscr.addstr(0, 0, "Choose a generation\n")
+                stdscr.addstr(0, 0, f"{title}\n")
+
                 for i, option in enumerate(options):
                     if i == selected_index:
-                        stdscr.addstr(f"> {option}  \n", curses.A_REVERSE)  # Highlight selection
+                        stdscr.addstr(f"> {option}  \n", curses.A_REVERSE)
                     else:
                         stdscr.addstr(f"  {option}  \n")
-                
+
                 key = stdscr.getch()
 
                 if key == curses.KEY_UP:
                     selected_index = (selected_index - 1) % len(options)
                 elif key == curses.KEY_DOWN:
                     selected_index = (selected_index + 1) % len(options)
-                elif key in (curses.KEY_ENTER, 10, 13, 32):  # Enter key
+                elif key in (curses.KEY_ENTER, 10, 13, 32):  # Enter or Space
                     return options[selected_index].lower()
 
-        selection = curses.wrapper(draw_menu)
+        # **First Menu - Choose Mode**
+        selected_mode = curses.wrapper(draw_menu, mode_options, "Choose Mode:")
 
-        # Process selection
-        if selection in {"All"}:
-            return [self.GENERATION_CUTOFFS[0], self.GENERATION_CUTOFFS[-1]]
-        elif selection in {"1", "2", "3", "4", "5", "6", "7"}:
-            return [
-                self.GENERATION_CUTOFFS[int(selection) - 1],
-                self.GENERATION_CUTOFFS[int(selection)],
-            ]
+        # **Second Menu - Choose Based on Selection**
+        if selected_mode == "name 'em":
+            selected_option = curses.wrapper(draw_menu, generation_options, "Choose a Generation")
+            if selected_option == "all":
+                return selected_mode, [self.GENERATION_CUTOFFS[0], self.GENERATION_CUTOFFS[-1]]
+            else:
+                return selected_mode, [
+                    self.GENERATION_CUTOFFS[int(selected_option) - 1],
+                    self.GENERATION_CUTOFFS[int(selected_option)],
+                ]
+        else:  # "by number" or "by name"
+            selected_option = curses.wrapper(draw_menu, number_name_options, "Choose Selection Type")
+            return selected_mode, selected_option  # Returns "all", "every 10", or "every 25"
 
-    def run_quiz(self, pokemon_range: list):
+    def run_name_em(self, pokemon_range: list):
         self.stats = Stats()
 
         num_pokemon = pokemon_range[1] - pokemon_range[0]
@@ -247,6 +262,40 @@ class Game:
                 return True
         return False
 
+    def run_by_number(self, selection: str):
+        self.stats = Stats()
+        answered_pokemon = []
+        
+        guessable_pokemon = []
+        if selection == "all":
+            guessable_pokemon = self.pokemon
+        elif selection == "every 10":
+            guessable_pokemon = self.pokemon[::10]
+        elif selection == "every 25":
+            guessable_pokemon = self.pokemon[::25]
+
+        try:
+            while True:
+                pokemon = random.choice(guessable_pokemon)
+                pokemon_set = self.get_pokemon_set(pokemon.number)
+                current_pokemon_start_time = time.time()
+                while True:
+                    sys.stdout.write("\033[F")
+                    sys.stdout.flush()
+                    if self.validate_guess(f"{pokemon.number}: ", [pokemon.name]):
+                        current_pokemon_duration = time.time() - current_pokemon_start_time
+                        if current_pokemon_duration > self.stats.most_difficult_pokemon_time:
+                            self.stats.most_difficult_pokemon = pokemon_set[0]
+                            self.stats.most_difficult_pokemon_time = current_pokemon_duration
+                        break
+        except KeyboardInterrupt:
+            # self.print_listed_pokemon(answered_pokemon)
+            print("Hooray!")
+            print(self.stats)
+    
+    def run_by_name(self, selection: str):
+        print("Not implemented yet")
+
 
 class GameUtils:
     @staticmethod
@@ -263,8 +312,13 @@ class GameUtils:
 def main():
     try:
         game = Game()
-        pokemon_range = game.setup()
-        game.run_quiz(pokemon_range)
+        mode, selection = game.setup()
+        if mode == "name 'em":
+            game.run_name_em(selection)
+        elif mode == "by number":
+            game.run_by_number(selection)
+        elif mode == "by name":
+            game.run_by_name(selection)
     except KeyboardInterrupt:
         print("\nYou're a bum")
 
