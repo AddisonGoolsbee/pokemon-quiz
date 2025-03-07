@@ -74,12 +74,10 @@ class Game:
 
         # First menu options
         mode_options = ["Name 'em", "By number", "By name"]
-        selected_mode_index = 0
 
         # Second menu options
         generation_options = ["All", "1", "2", "3", "4", "5", "6", "7"]
         number_name_options = ["All", "Every 10", "Every 25"]
-        selected_second_index = 0
 
         def draw_menu(stdscr, options, title):
             """Generic function to draw a menu and return the selected option."""
@@ -151,7 +149,7 @@ class Game:
                             self.stats.most_difficult_pokemon_time = current_pokemon_duration
                         break
 
-        self.print_listed_pokemon(answered_pokemon)
+        self.print_listed_pokemon(answered_pokemon, num_correct, num_pokemon)
         print("Hooray!")
         print(self.stats)
 
@@ -265,7 +263,7 @@ class Game:
     def run_by_number(self, selection: str):
         self.stats = Stats()
         answered_pokemon = []
-        
+
         guessable_pokemon = []
         if selection == "all":
             guessable_pokemon = self.pokemon
@@ -292,7 +290,7 @@ class Game:
             # self.print_listed_pokemon(answered_pokemon)
             print("Hooray!")
             print(self.stats)
-    
+
     def run_by_name(self, selection: str):
         print("Not implemented yet")
 
