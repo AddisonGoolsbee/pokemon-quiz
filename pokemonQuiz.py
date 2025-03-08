@@ -150,6 +150,7 @@ class Game:
                         break
 
         self.print_listed_pokemon(answered_pokemon, num_correct, num_pokemon)
+        sys.stdout.write("\033[K")
         print("Hooray!")
         print(self.stats)
 
