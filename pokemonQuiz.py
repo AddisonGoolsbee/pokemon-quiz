@@ -266,11 +266,11 @@ class Game:
 
         guessable_pokemon = []
         if selection == "all":
-            guessable_pokemon = self.pokemon
+            guessable_pokemon = self.pokemon[1:]
         elif selection == "every 10":
-            guessable_pokemon = self.pokemon[::10]
+            guessable_pokemon = self.pokemon[::10][1:]
         elif selection == "every 25":
-            guessable_pokemon = self.pokemon[::25]
+            guessable_pokemon = self.pokemon[::25][1:]
 
         try:
             while True:
