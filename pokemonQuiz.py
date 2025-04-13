@@ -226,7 +226,22 @@ class Game:
 
     def print_listed_pokemon(self, pokemon: list, num_correct: int, num_pokemon: int):
         terminal_width = os.get_terminal_size().columns
-        num_lines = (sum(len(poke) + 1 for poke in pokemon) // terminal_width) + 2
+        
+        # Calculate the actual number of lines by simulating the line wrapping logic
+        num_lines = 1  # Start with at least 1 line
+        current_line_length = 0
+        
+        for poke in pokemon:
+            poke_length = len(poke) + 1  # +1 for space
+            if current_line_length + poke_length > terminal_width:
+                num_lines += 1
+                current_line_length = poke_length
+            else:
+                current_line_length += poke_length
+        
+        # Add 2 more lines for the stats display
+        num_lines += 2
+        
         sys.stdout.write("\033[F" * num_lines)
         sys.stdout.flush()
         current_line_length = 0
