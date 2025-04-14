@@ -136,8 +136,8 @@ class Game:
 
         num_pokemon = pokemon_range[1] - pokemon_range[0]
         num_correct = 0
-
         answered_pokemon = []
+        skip_next_set = False
 
         for index, pokemon in enumerate(
             self.pokemon[pokemon_range[0] + 1 : pokemon_range[1] + 1],
@@ -145,10 +145,17 @@ class Game:
         ):
             if pokemon.name not in answered_pokemon:
                 pokemon_set = self.get_pokemon_set(index)
+                if skip_next_set:
+                    skip_next_set = False
+                    num_correct += len(pokemon_set)
+                    answered_pokemon += pokemon_set
+                    continue
                 current_pokemon_start_time = time.time()
                 while True:
                     self.print_listed_pokemon(answered_pokemon, num_correct, num_pokemon)
                     if self.validate_guess(f"{index}: ", pokemon_set, getattr(pokemon, 'length', 5)):
+                        if getattr(pokemon, 'skipNextSet', False):
+                            skip_next_set = True
                         num_correct += len(pokemon_set)
                         answered_pokemon += pokemon_set
                         current_pokemon_duration = time.time() - current_pokemon_start_time
