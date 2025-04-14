@@ -57,6 +57,7 @@ class Game:
     def __init__(self):
         self.current_hint = ""
         self.pokemon = self.load_data()
+        self.remaining_pokemon = [p.name for p in self.pokemon[1:]]
 
     def load_data(self) -> list[Pokemon]:
         current_file_path = os.path.abspath(__file__)
@@ -149,6 +150,7 @@ class Game:
                     skip_next_set = False
                     num_correct += len(pokemon_set)
                     answered_pokemon += pokemon_set
+                    self.remaining_pokemon = [p for p in self.remaining_pokemon if p not in pokemon_set]
                     continue
                 current_pokemon_start_time = time.time()
                 while True:
@@ -158,6 +160,7 @@ class Game:
                             skip_next_set = True
                         num_correct += len(pokemon_set)
                         answered_pokemon += pokemon_set
+                        self.remaining_pokemon = [p for p in self.remaining_pokemon if p not in pokemon_set]
                         current_pokemon_duration = time.time() - current_pokemon_start_time
                         if current_pokemon_duration > self.stats.most_difficult_pokemon_time:
                             self.stats.most_difficult_pokemon = pokemon_set[0]
@@ -226,10 +229,10 @@ class Game:
     def check_if_guess_incorrect(self, input_str, length_to_use=5):
         # checks whether the guess was a typo or an actual wrong pokemon, in which case increment the num_incorrect stat
         # add check for if it was part of the previous set
-        for pokemon in self.pokemon:
-            if (len(input_str) == len(pokemon.name[:length_to_use]) and input_str == pokemon.name[:length_to_use]) or (
-                len(input_str) == len(GameUtils.first_n_alphanumeric(pokemon.name, length_to_use)[:length_to_use])
-                and input_str == GameUtils.first_n_alphanumeric(pokemon.name, length_to_use)[:length_to_use]
+        for pokemon in self.remaining_pokemon:
+            if (len(input_str) == len(pokemon[:length_to_use]) and input_str == pokemon[:length_to_use]) or (
+                len(input_str) == len(GameUtils.first_n_alphanumeric(pokemon, length_to_use)[:length_to_use])
+                and input_str == GameUtils.first_n_alphanumeric(pokemon, length_to_use)[:length_to_use]
             ):
                 self.stats.num_incorrect += 1
                 return
