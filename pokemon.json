@@ -17,7 +17,8 @@
     },
     {
         "name": "charmander",
-        "set": true
+        "set": true,
+        "skipNextSet": true
     },
     {
         "name": "charmeleon",
@@ -117,11 +118,14 @@
     },
     {
         "name": "nidoran-f",
-        "set": true
+        "set": true,
+        "length": 9,
+        "skipNextSet": true
     },
     {
         "name": "nidorina",
-        "set": false
+        "set": false,
+        "length": 8
     },
     {
         "name": "nidoqueen",
@@ -129,11 +133,13 @@
     },
     {
         "name": "nidoran-m",
-        "set": true
+        "set": true,
+        "length": 9
     },
     {
         "name": "nidorino",
-        "set": false
+        "set": false,
+        "length": 8
     },
     {
         "name": "nidoking",
@@ -425,11 +431,14 @@
     },
     {
         "name": "hitmonlee",
-        "set": true
+        "set": true,
+        "length": 6,
+        "skipNextSet": true
     },
     {
         "name": "hitmonchan",
-        "set": true
+        "set": true,
+        "length": 6
     },
     {
         "name": "lickitung",
@@ -3157,11 +3166,13 @@
     },
     {
         "name": "cosmog",
-        "set": true
+        "set": true,
+        "length": 6
     },
     {
         "name": "cosmoem",
-        "set": true
+        "set": true,
+        "length": 6
     },
     {
         "name": "solgaleo",

@@ -1,3 +1,4 @@
+from __future__ import annotations
 import time
 import os
 import termios
@@ -9,10 +10,12 @@ import random
 
 
 class Pokemon:
-    def __init__(self, name, number, set):
+    def __init__(self, name, number, set, length=5, skipNextSet=False):
         self.name = name
         self.number = number
         self.set = set
+        self.length = length
+        self.skipNextSet = skipNextSet
 
     def __repr__(self):
         return self.name
@@ -63,7 +66,13 @@ class Game:
 
         res = []
         for index, pokemon in enumerate(data):
-            res.append(Pokemon(pokemon["name"], index, pokemon["set"]))
+            res.append(Pokemon(
+                pokemon["name"],
+                index,
+                pokemon["set"],
+                pokemon.get("length", None),
+                pokemon.get("skipNextSet", False)
+            ))
         return res
 
     # Choose settings and pokemon listing for the next quiz
@@ -139,8 +148,7 @@ class Game:
                 current_pokemon_start_time = time.time()
                 while True:
                     self.print_listed_pokemon(answered_pokemon, num_correct, num_pokemon)
-
-                    if self.validate_guess(f"{index}: ", pokemon_set):
+                    if self.validate_guess(f"{index}: ", pokemon_set, getattr(pokemon, 'length', 5)):
                         num_correct += len(pokemon_set)
                         answered_pokemon += pokemon_set
                         current_pokemon_duration = time.time() - current_pokemon_start_time
@@ -154,7 +162,9 @@ class Game:
         print("Hooray!")
         print(self.stats)
 
-    def validate_guess(self, prompt, answers):
+    def validate_guess(self, prompt, answers, length_to_use=5):
+        if not length_to_use:
+            length_to_use = 5
         if self.current_hint:
             print(f"Hint: {self.current_hint}")
         sys.stdout.write("\033[K")
@@ -185,34 +195,34 @@ class Game:
                         return False
 
                     for i in answers:
-                        if (len(input_str) == len(i[:5]) and input_str == i[:5]) or (
-                            len(input_str) == len(GameUtils.first_5_alphanumeric(i)[:5])
-                            and input_str == GameUtils.first_5_alphanumeric(i)[:5]
+                        if (len(input_str) == len(i[:length_to_use]) and input_str == i[:length_to_use]) or (
+                            len(input_str) == len(GameUtils.first_n_alphanumeric(i, length_to_use)[:length_to_use])
+                            and input_str == GameUtils.first_n_alphanumeric(i, length_to_use)[:length_to_use]
                         ):
                             self.current_hint = ""
                             self.stats.num_correct += 1
                             return True
 
                     if (
-                        len(input_str) >= 5
+                        len(input_str) >= length_to_use
                         or user_char in ["\n", "\r"]
                         or input_str.lower() in self.less_than_5_letter_pokemon
                     ):
                         if input_str.lower() == "mew" and "mewtwo" in answers:
                             continue
-                        self.check_if_guess_incorrect(input_str)
+                        self.check_if_guess_incorrect(input_str, length_to_use)
                         return False
 
         finally:
             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
 
-    def check_if_guess_incorrect(self, input_str):
+    def check_if_guess_incorrect(self, input_str, length_to_use=5):
         # checks whether the guess was a typo or an actual wrong pokemon, in which case increment the num_incorrect stat
         # add check for if it was part of the previous set
         for pokemon in self.pokemon:
-            if (len(input_str) == len(pokemon.name[:5]) and input_str == pokemon.name[:5]) or (
-                len(input_str) == len(GameUtils.first_5_alphanumeric(pokemon.name)[:5])
-                and input_str == GameUtils.first_5_alphanumeric(pokemon.name)[:5]
+            if (len(input_str) == len(pokemon.name[:length_to_use]) and input_str == pokemon.name[:length_to_use]) or (
+                len(input_str) == len(GameUtils.first_n_alphanumeric(pokemon.name, length_to_use)[:length_to_use])
+                and input_str == GameUtils.first_n_alphanumeric(pokemon.name, length_to_use)[:length_to_use]
             ):
                 self.stats.num_incorrect += 1
                 return
@@ -313,12 +323,12 @@ class Game:
 
 class GameUtils:
     @staticmethod
-    def first_5_alphanumeric(s):
+    def first_n_alphanumeric(s, n):
         result = ""
         for char in s:
             if char.isalnum():
                 result += char
-                if len(result) == 5:
+                if len(result) == n:
                     break
         return result
 
