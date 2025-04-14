@@ -173,99 +173,58 @@ class Game:
         print(self.stats)
 
     def validate_guess(self, prompt, answers, length_to_use=5):
-        """Validate user's guess against possible answers."""
-        length_to_use = length_to_use or 5
-        self._display_hint()
-        
-        input_str = self._get_user_input(prompt)
-        if input_str is None:  # User interrupted
-            raise KeyboardInterrupt
-        
-        return self._check_answer(input_str, answers, length_to_use)
-
-    def _display_hint(self):
-        """Display current hint if one exists."""
+        if not length_to_use:
+            length_to_use = 5
         if self.current_hint:
             print(f"Hint: {self.current_hint}")
         sys.stdout.write("\033[K")
-
-    def _get_user_input(self, prompt):
-        """Get and process user input character by character."""
         print(prompt, end="", flush=True)
+
         input_str = ""
-        
         fd = sys.stdin.fileno()
         old_settings = termios.tcgetattr(fd)
         try:
             tty.setraw(fd)
             while True:
                 user_char = sys.stdin.read(1)
-                
-                if user_char in ["\x03", "\x04"]:  # ^C or ^D
-                    return None
-                
-                if user_char in ("\x08", "\x7f"):  # Backspace/Delete
+                # key is ^C or ^D
+                if user_char in ["\x03", "\x04"]:
+                    raise KeyboardInterrupt
+                # key is delete
+                elif user_char in ("\x08", "\x7f"):
                     if input_str:
                         input_str = input_str[:-1]
                         print("\b \b", end="", flush=True)
-                    continue
-                
-                print(user_char, end="", flush=True)
-                input_str += user_char.lower()
-                
-                if user_char in ["\n", "\r"]:
-                    return input_str
-                
-                if self._should_process_input(input_str):
-                    return input_str
+                # normal key
+                else:
+                    print(user_char, end="", flush=True)
+                    input_str += user_char
+                    input_str = input_str.lower()
+
+                    if self.handle_hint(input_str, answers[0]):
+                        return False
+
+                    for i in answers:
+                        if (len(input_str) == len(i[:length_to_use]) and input_str == i[:length_to_use]) or (
+                            len(input_str) == len(GameUtils.first_n_alphanumeric(i, length_to_use)[:length_to_use])
+                            and input_str == GameUtils.first_n_alphanumeric(i, length_to_use)[:length_to_use]
+                        ):
+                            self.current_hint = ""
+                            self.stats.num_correct += 1
+                            return True
+
+                    if (
+                        len(input_str) >= length_to_use
+                        or user_char in ["\n", "\r"]
+                        or input_str.lower() in self.less_than_5_letter_pokemon
+                    ):
+                        if input_str.lower() == "mew" and "mewtwo" in answers:
+                            continue
+                        self.check_if_guess_incorrect(input_str, length_to_use)
+                        return False
+
         finally:
             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-
-    def _should_process_input(self, input_str):
-        """Determine if the input should be processed."""
-        return (len(input_str) >= 5 or 
-                input_str.lower() in self.less_than_5_letter_pokemon)
-
-    def _check_answer(self, input_str, answers, length_to_use):
-        """Check if the input matches any of the possible answers."""
-        # Handle hint request
-        if self._is_hint_request(input_str):
-            self._update_hint(answers[0])
-            return False
-        
-        # Check for correct answer
-        for answer in answers:
-            if self._is_correct_answer(input_str, answer, length_to_use):
-                self._handle_correct_answer()
-                return True
-            
-        # Handle incorrect answer
-        self.check_if_guess_incorrect(input_str, length_to_use)
-        return False
-
-    def _is_hint_request(self, input_str):
-        """Check if input is requesting a hint."""
-        return len(input_str) == 5 and input_str.lower().strip() in ["help", "hint"]
-
-    def _update_hint(self, answer):
-        """Update the current hint."""
-        if len(self.current_hint) < len(answer):
-            if not self.current_hint:
-                self.stats.hints_used += 1
-            self.current_hint += answer[len(self.current_hint)]
-
-    def _is_correct_answer(self, input_str, answer, length_to_use):
-        """Check if input matches the answer."""
-        truncated_answer = answer[:length_to_use]
-        alphanumeric_answer = GameUtils.first_n_alphanumeric(answer, length_to_use)[:length_to_use]
-        
-        return ((len(input_str) == len(truncated_answer) and input_str == truncated_answer) or
-                (len(input_str) == len(alphanumeric_answer) and input_str == alphanumeric_answer))
-
-    def _handle_correct_answer(self):
-        """Handle actions for correct answer."""
-        self.current_hint = ""
-        self.stats.num_correct += 1
 
     def check_if_guess_incorrect(self, input_str, length_to_use=5):
         # checks whether the guess was a typo or an actual wrong pokemon, in which case increment the num_incorrect stat
@@ -277,6 +236,13 @@ class Game:
             ):
                 self.stats.num_incorrect += 1
                 return
+
+    def handle_hint(self, input_str, answer):
+        if len(input_str) == 5 and input_str.lower().strip() in ["help", "hint"]:
+            if len(self.current_hint) < len(answer):
+                if self.current_hint == "":
+                    self.stats.hints_used += 1
+                self.current_hint += answer[len(self.current_hint)]
 
     def print_listed_pokemon(self, pokemon: list, num_correct: int, num_pokemon: int):
         terminal_width = os.get_terminal_size().columns
