@@ -431,13 +431,13 @@
     {
         "name": "hitmonlee",
         "set": true,
-        "length": 6,
+        "length": 7,
         "skipNextSet": true
     },
     {
         "name": "hitmonchan",
         "set": true,
-        "length": 6
+        "length": 7
     },
     {
         "name": "lickitung",
