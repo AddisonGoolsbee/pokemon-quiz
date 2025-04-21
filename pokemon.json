@@ -563,12 +563,12 @@
     },
     {
         "name": "omanyte",
-        "set": true
+        "set": true,
+        "skipNextSet": true
     },
     {
         "name": "omastar",
-        "set": false,
-        "skipNextSet": true
+        "set": false
     },
     {
         "name": "kabuto",
@@ -959,12 +959,13 @@
     },
     {
         "name": "tyrogue",
-        "set": true
+        "set": true,
+        "skipNextSet": true
     },
     {
         "name": "hitmontop",
         "set": true,
-        "length": 6
+        "length": 7
     },
     {
         "name": "smoochum",
@@ -1662,12 +1663,12 @@
     },
     {
         "name": "cranidos",
-        "set": true
+        "set": true,
+        "skipNextSet": true
     },
     {
         "name": "rampardos",
-        "set": false,
-        "skipNextSet": true
+        "set": false
     },
     {
         "name": "shieldon",
@@ -3106,7 +3107,8 @@
     },
     {
         "name": "oranguru",
-        "set": true
+        "set": true,
+        "skipNextSet": true
     },
     {
         "name": "passimian",
@@ -3211,7 +3213,8 @@
     },
     {
         "name": "solgaleo",
-        "set": true
+        "set": true,
+        "skipNextSet": true
     },
     {
         "name": "lunala",
